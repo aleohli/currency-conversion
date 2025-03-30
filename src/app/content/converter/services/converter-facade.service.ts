@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ConverterService } from './converter.service';
 import { Currency, CurrencyResponse } from '../models/currrency';
-import { catchError, filter, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { ConverterData } from '../models/converter';
 
 @Injectable()

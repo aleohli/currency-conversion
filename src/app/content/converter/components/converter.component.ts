@@ -23,7 +23,7 @@ export class ConverterComponent implements OnInit {
   loading: boolean = true;
   valueLoading: boolean;
 
-  // Better state management could be introduced - subjects, ngrx component store or ngrx (for more complex app)
+  // State management could be introduced - subjects, ngrx component store or just ngrx
   ngOnInit(): void {
     this.converterFacadeService
       .loadCurrencies()
