@@ -12,11 +12,11 @@
   }
 
   <div class="mt-3">
-    @if (!(currenciesLoading$ | async)) {
+    @if (!!(currencies$ | async)?.length) {
       @if (valueLoading$ | async) {
         Loading...
       } 
-      <!-- investigate why pipe aliasing doesn't work -->
+      <!-- TODO investigate why pipe alias doesn't work -->
       @else if (value$ | async) {
         {{ 'Result: ' + (value$ | async) + ' ' + targetCurrency + '.' }}
       } @else {

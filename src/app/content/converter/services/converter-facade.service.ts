@@ -1,7 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { ConverterService } from './converter.service';
 import { Currency, CurrencyResponse } from '../models/currrency';
-import { BehaviorSubject, catchError, map, Observable, of, pipe, withLatestFrom } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  map,
+  Observable,
+  of,
+  pipe,
+  withLatestFrom,
+} from 'rxjs';
 import { ConverterData } from '../models/converter';
 
 @Injectable()
@@ -55,8 +63,9 @@ export class ConverterFacadeService {
   }
 
   get currenciesLoadingFailed$(): Observable<boolean> {
-    return this.currenciesLoading$.pipe(withLatestFrom(this.currencies$), pipe(
-      map(([loading,currencies]) => !loading && !currencies?.length)
-    ))
+    return this.currenciesLoading$.pipe(
+      withLatestFrom(this.currencies$),
+      pipe(map(([loading, currencies]) => !loading && !currencies?.length))
+    );
   }
 }
