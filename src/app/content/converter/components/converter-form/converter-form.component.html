@@ -1,0 +1,29 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <app-input
+    class="converter-form-field"
+    [id]="'amount'"
+    [formControlName]="'amount'"
+    [type]="'number'"
+    [label]="'Amount'"
+    [validationMessages]="validationMessages"
+  ></app-input>
+  <app-select
+    class="converter-form-field"
+    [id]="'from'"
+    [formControlName]="'from'"
+    [label]="'From'"
+    [options]="options"
+    [validationMessages]="validationMessages"
+  ></app-select>
+  <app-select
+    class="converter-form-field"
+    [id]="'to'"
+    [formControlName]="'to'"
+    [label]="'To'"
+    [options]="options"
+    [validationMessages]="validationMessages"
+  ></app-select>
+  <button type="submit" class="btn btn-success" [disabled]="form.invalid">
+    Convert
+  </button>
+</form>

@@ -1,0 +1,20 @@
+<div class="form-field input-group has-validation">
+  <div class="form-floating" [ngClass]="{ 'is-invalid': isInvalid }">
+    <input
+      class="form-control"
+      [ngClass]="{ 'is-invalid': isInvalid }"
+      [id]="id"
+      [type]="type"
+      (input)="onInput($event)"
+      (blur)="onBlur()"
+    />
+    @if (label) {
+      <label [for]="id">{{ label }}</label>
+    }
+  </div>
+  @for (message of errorMessages; track message) {
+    <div class="invalid-feedback">
+      {{ message }}
+    </div>
+  }
+</div>

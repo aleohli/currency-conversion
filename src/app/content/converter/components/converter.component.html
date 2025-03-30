@@ -1,0 +1,19 @@
+<section class="converter-section">
+  @if (loading) {
+    <div>Loading...</div>
+  } @else if (loadingFailed) {
+    <div class="alert alert-danger">Could not load the currencies!</div>
+  } @else {
+    <p>I would like to convert:</p>
+    <app-converter-form
+      [currencies]="currencies"
+      (formSubmit)="convert($event)"
+    ></app-converter-form>
+  }
+
+  @if (!loadingFailed && !loading) {
+    <div class="mt-3">
+      {{ valueInfo }}
+    </div>
+  }
+</section>

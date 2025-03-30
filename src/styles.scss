@@ -1,0 +1,16 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+}
+
+
+// Bootstrap imports
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+// Global styles imports
+@import 'assets/styles/forms';
