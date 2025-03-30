@@ -1,4 +1,11 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -42,7 +49,7 @@ export class ConverterFormComponent implements OnInit {
   }
 
   get options(): string[] {
-    return this.currencies?.map(({short_code}) => short_code) || [] 
+    return this.currencies?.map(({ short_code }) => short_code) || [];
   }
 
   onSubmit(): void {

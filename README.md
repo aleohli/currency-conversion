@@ -27,6 +27,8 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Information
 
 There are comments in the code with suggestions what could be improved in the future.
-Project also lacks passing unit tests.
+What could be improved generally: 
+    - adding missing tests
+    - OnPush strategy usage
 
 

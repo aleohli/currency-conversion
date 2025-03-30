@@ -1,3 +1,9 @@
+// Global styles
+@use 'assets/styles/forms';
+
+// Bootstrap imports
+@import "../node_modules/bootstrap/scss/bootstrap";
+
 *,
 *::before,
 *::after {
@@ -7,10 +13,3 @@
 body {
 	margin: 0;
 }
-
-
-// Bootstrap imports
-@import "../node_modules/bootstrap/scss/bootstrap";
-
-// Global styles imports
-@import 'assets/styles/forms';

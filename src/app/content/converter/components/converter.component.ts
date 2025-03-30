@@ -1,61 +1,51 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ConverterFormComponent } from './converter-form/converter-form.component';
 import { ConverterFacadeService } from '../services/converter-facade.service';
-import { Currency } from '../models/currrency';
 import { ConverterService } from '../services/converter.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ConverterData } from '../models/converter';
+import { AsyncPipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { Currency } from '../models/currrency';
 
 @Component({
   selector: 'app-converter',
-  imports: [ConverterFormComponent],
+  imports: [ConverterFormComponent, AsyncPipe],
   providers: [ConverterFacadeService, ConverterService],
   templateUrl: './converter.component.html',
   styleUrl: './converter.component.scss',
 })
 export class ConverterComponent implements OnInit {
   private converterFacadeService = inject(ConverterFacadeService);
-  private destroyRef = inject(DestroyRef);
+  targetCurrency: string;
 
-  currencies: Currency[];
-  value: number | null;
-  targetCurrency:  string;
-  loading: boolean = true;
-  valueLoading: boolean;
-
-  // State management could be introduced - subjects, ngrx component store or just ngrx
+  // State management could be improved with the usage of e.g. ngrx
   ngOnInit(): void {
-    this.converterFacadeService
-      .loadCurrencies()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((currencies) => {
-        this.currencies = currencies;
-        this.loading = false;
-      });
+    this.converterFacadeService.loadCurrencies();
   }
 
   // Same as above
   convert(converterData: ConverterData): void {
-    this.valueLoading = true;
     this.targetCurrency = converterData.to;
-    this.converterFacadeService
-      .convert(converterData)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((value) => {
-        this.value = value;
-        this.valueLoading = false;
-      });
+    this.converterFacadeService.convert(converterData);
   }
 
-  get loadingFailed(): boolean {
-    return !this.loading && !this.currencies?.length;
+  get currenciesLoading$(): Observable<boolean> {
+    return this.converterFacadeService.currenciesLoading$;
   }
 
-  get valueInfo(): string {
-    return this.valueLoading
-      ? 'Loading...'
-      : this.value
-        ? `Result: ${this.value} ${this.targetCurrency}.`
-        : 'Currently there is no value converted.';
+  get currenciesLoadingFailed$(): Observable<boolean> {
+    return this.converterFacadeService.currenciesLoadingFailed$;
+  }
+
+  get currencies$(): Observable<Currency[]> {
+    return this.converterFacadeService.currencies$;
+  }
+
+  get valueLoading$(): Observable<boolean> {
+    return this.converterFacadeService.valueLoading$;
+  }
+
+  get value$(): Observable<number | null> {
+    return this.converterFacadeService.value$;
   }
 }

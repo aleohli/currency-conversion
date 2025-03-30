@@ -1,19 +1,27 @@
 <section class="converter-section">
-  @if (loading) {
+  @if (currenciesLoading$ | async) {
     <div>Loading...</div>
-  } @else if (loadingFailed) {
+  } @else if (currenciesLoadingFailed$ | async) {
     <div class="alert alert-danger">Could not load the currencies!</div>
   } @else {
     <p>I would like to convert:</p>
     <app-converter-form
-      [currencies]="currencies"
+      [currencies]="currencies$ | async"
       (formSubmit)="convert($event)"
     ></app-converter-form>
   }
 
-  @if (!loadingFailed && !loading) {
-    <div class="mt-3">
-      {{ valueInfo }}
-    </div>
-  }
+  <div class="mt-3">
+    @if (!(currenciesLoading$ | async)) {
+      @if (valueLoading$ | async) {
+        Loading...
+      } 
+      <!-- investigate why pipe aliasing doesn't work -->
+      @else if (value$ | async) {
+        {{ 'Result: ' + (value$ | async) + ' ' + targetCurrency + '.' }}
+      } @else {
+        Currently there is no value converted.
+      }
+    }
+  </div>
 </section>
