@@ -16,6 +16,7 @@ import { ConverterData } from '../models/converter';
 export class ConverterFacadeService {
   private converterService = inject(ConverterService);
   private currencies = new BehaviorSubject<Currency[]>([]);
+  // loading subjects could be changed to one with enum value to avoid many of them
   private currenciesLoading = new BehaviorSubject<boolean>(false);
   private value = new BehaviorSubject<number | null>(null);
   private valueLoading = new BehaviorSubject<boolean>(false);
